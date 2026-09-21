@@ -1,0 +1,100 @@
+@import './variables';
+@import './mixins';
+
+.desktop-stage-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  @include flex-center;
+  background: radial-gradient(circle at center, #0c1836 0%, #050816 85%);
+  overflow: hidden;
+
+  // Outer ambient neon aura for desktop preview
+  &::before {
+    content: '';
+    position: absolute;
+    width: 440px;
+    height: 880px;
+    border-radius: 56px;
+    background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.18) 0%, rgba(255, 43, 214, 0.08) 60%, transparent 80%);
+    filter: blur(45px);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+.mobile-device-frame {
+  position: relative;
+  width: 100%;
+  max-width: 416px;
+  height: 100%;
+  max-height: 890px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: $bg-deep;
+  box-shadow: 
+    0 0 0 1px rgba(0, 229, 255, 0.25),
+    0 25px 60px -10px rgba(0, 0, 0, 0.95),
+    0 0 35px rgba(0, 229, 255, 0.15);
+
+  // Desktop casing rounded corners and border
+  @media (min-width: 521px) {
+    border-radius: 46px;
+    border: 3px solid rgba(255, 255, 255, 0.12);
+    outline: 8px solid #080f1e;
+    
+    // Dynamic island / top camera notch indicator
+    .device-notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 96px;
+      height: 22px;
+      background: #000000;
+      border-radius: 14px;
+      z-index: 99;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+
+      &::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #071529;
+        box-shadow: inset 0 0 2px #00e5ff;
+      }
+    }
+  }
+
+  // Fullscreen mobile view without casing
+  @media (max-width: 520px) {
+    max-width: 100vw;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+
+    .device-notch {
+      display: none;
+    }
+  }
+}
+
+.mobile-screen-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  touch-action: none;
+}

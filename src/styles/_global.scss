@@ -1,0 +1,99 @@
+@import './variables';
+@import './mixins';
+@import './animations';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: $bg-deep;
+  color: $text-bright;
+  font-family: $font-ui;
+  touch-action: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  outline: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+// Background Ambient FX Layer
+.ambient-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+
+  .bg-radial-1 {
+    position: absolute;
+    top: -15%;
+    left: 20%;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, rgba(0, 229, 255, 0) 70%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .bg-radial-2 {
+    position: absolute;
+    bottom: -10%;
+    right: 15%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(255, 43, 214, 0.10) 0%, rgba(255, 43, 214, 0) 70%);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+
+  .bg-grid-mesh {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 229, 255, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+  }
+
+  .floating-motes {
+    position: absolute;
+    inset: 0;
+    
+    .mote {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: $neon-cyan;
+      box-shadow: 0 0 6px $neon-cyan;
+      animation: floatMote 6s ease-in-out infinite alternate;
+    }
+  }
+}

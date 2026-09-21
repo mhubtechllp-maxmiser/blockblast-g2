@@ -1,0 +1,49 @@
+@import './variables';
+
+@mixin glass-panel($bg: $bg-glass, $border: $border-glass) {
+  background: $bg;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid $border;
+  box-shadow: $shadow-glass;
+}
+
+@mixin neon-glow($color, $intensity: 1) {
+  box-shadow: 
+    0 0 (10px * $intensity) rgba($color, 0.45),
+    0 0 (24px * $intensity) rgba($color, 0.25),
+    inset 0 0 (8px * $intensity) rgba($color, 0.35);
+}
+
+@mixin text-neon-glow($color) {
+  color: $text-bright;
+  text-shadow: 
+    0 0 6px rgba($color, 0.9),
+    0 0 16px rgba($color, 0.6),
+    0 0 28px rgba($color, 0.3);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin touch-press {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.15s ease, box-shadow 0.15s ease;
+
+  &:active {
+    transform: scale(0.95);
+    filter: brightness(1.2);
+  }
+}

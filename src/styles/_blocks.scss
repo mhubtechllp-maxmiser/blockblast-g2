@@ -1,0 +1,190 @@
+@import './variables';
+@import './mixins';
+@import './animations';
+
+// Pseudo-3D Futuristic Energy Block
+.neon-block {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-sizing: border-box;
+  transform: translateZ(0);
+
+  // Outer glowing depth
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.5);
+
+  // Inner beveled neon frame
+  .block-surface {
+    position: absolute;
+    inset: 1px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    // Specular top reflection
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+      border-radius: 5px 5px 0 0;
+      pointer-events: none;
+    }
+  }
+
+  // Glowing central energy core
+  .energy-core {
+    width: 32%;
+    height: 32%;
+    border-radius: 3px;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff;
+    opacity: 0.9;
+  }
+
+  // Dynamic Neon Variants based on color
+  &.color-cyan {
+    background: linear-gradient(145deg, #007c8a 0%, #002b30 100%);
+    border: 1.5px solid $neon-cyan;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
+
+    .block-surface {
+      background: radial-gradient(circle at 40% 35%, #0099aa 0%, #00363d 80%);
+    }
+    .energy-core {
+      background: #e0fbff;
+      box-shadow: 0 0 8px $neon-cyan;
+    }
+  }
+
+  &.color-blue {
+    background: linear-gradient(145deg, #1b4fb8 0%, #0d2252 100%);
+    border: 1.5px solid $neon-blue;
+    box-shadow: 0 0 10px rgba(41, 121, 255, 0.45);
+
+    .block-surface {
+      background: radial-gradient(circle at 40% 35%, #255ecc 0%, #0f275e 80%);
+    }
+    .energy-core {
+      background: #e8f0ff;
+      box-shadow: 0 0 8px $neon-blue;
+    }
+  }
+
+  &.color-purple {
+    background: linear-gradient(145deg, #6b21a8 0%, #310d54 100%);
+    border: 1.5px solid $neon-purple;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.45);
+
+    .block-surface {
+      background: radial-gradient(circle at 40% 35%, #842fc9 0%, #3e1269 80%);
+    }
+    .energy-core {
+      background: #f6edff;
+      box-shadow: 0 0 8px $neon-purple;
+    }
+  }
+
+  &.color-magenta {
+    background: linear-gradient(145deg, #b80d96 0%, #570546 100%);
+    border: 1.5px solid $neon-magenta;
+    box-shadow: 0 0 10px rgba(255, 43, 214, 0.45);
+
+    .block-surface {
+      background: radial-gradient(circle at 40% 35%, #d112ab 0%, #690855 80%);
+    }
+    .energy-core {
+      background: #ffedfc;
+      box-shadow: 0 0 8px $neon-magenta;
+    }
+  }
+
+  &.color-lime {
+    background: linear-gradient(145deg, #1fa807 0%, #0d4a03 100%);
+    border: 1.5px solid $neon-lime;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.45);
+
+    .block-surface {
+      background: radial-gradient(circle at 40% 35%, #2bc70c 0%, #125704 80%);
+    }
+    .energy-core {
+      background: #f0ffec;
+      box-shadow: 0 0 8px $neon-lime;
+    }
+  }
+
+  &.color-orange {
+    background: linear-gradient(145deg, #b86500 0%, #572f00 100%);
+    border: 1.5px solid $neon-orange;
+    box-shadow: 0 0 10px rgba(255, 145, 0, 0.45);
+
+    .block-surface {
+      background: radial-gradient(circle at 40% 35%, #d17504 0%, #693902 80%);
+    }
+    .energy-core {
+      background: #fff5e6;
+      box-shadow: 0 0 8px $neon-orange;
+    }
+  }
+
+  // Clearing state
+  &.clearing {
+    animation: lineClearingPulse 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    z-index: 10;
+  }
+}
+
+// Ghost Block Preview (Over Board)
+.ghost-cell {
+  position: absolute;
+  inset: 1px;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 4;
+
+  &.valid {
+    background: rgba(0, 229, 255, 0.25);
+    border: 1.5px solid $neon-cyan;
+    box-shadow: 
+      0 0 12px rgba(0, 229, 255, 0.6),
+      inset 0 0 8px rgba(0, 229, 255, 0.35);
+    animation: ghostPulse 1s ease-in-out infinite;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 25%;
+      border-radius: 3px;
+      background: rgba(224, 251, 255, 0.4);
+      box-shadow: 0 0 6px #00e5ff;
+    }
+  }
+
+  &.invalid {
+    background: rgba(255, 43, 80, 0.25);
+    border: 1.5px solid #ff2b50;
+    box-shadow: 
+      0 0 12px rgba(255, 43, 80, 0.6),
+      inset 0 0 8px rgba(255, 43, 80, 0.35);
+    animation: invalidShake 0.3s ease-in-out;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 25%;
+      border-radius: 3px;
+      background: rgba(255, 180, 190, 0.4);
+      box-shadow: 0 0 6px #ff2b50;
+    }
+  }
+}
